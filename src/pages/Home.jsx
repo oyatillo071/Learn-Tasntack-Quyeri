@@ -49,7 +49,7 @@ function Home() {
       return;
     }
 
-    addPostMutation.mutate({ title, body });
+    addPostMutation.mutate({ title });
     e.target.reset();
   };
 
