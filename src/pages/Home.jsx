@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
 import PaginationComponent from "./components/Pagination";
+import { UpdateIcon } from "@radix-ui/react-icons";
 
 function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,17 +53,11 @@ function Home() {
     e.target.reset();
   };
 
-  if (isLoading) {
-    return <p>Loading process.....</p>;
-  }
-
   return (
-    <div>
-      {isError && <h1>Error to fetch data</h1>}
-
+    <div className="container flex flex-col gap-1 p-6">
       <form
         onSubmit={handleAddPost}
-        className="flex flex-col gap-4 p-4 border rounded-md max-w-md mx-auto my-6"
+        className="flex flex-col gap-4  borde w-full rounded-lg max-w-lg border  border-black p-10 mx-auto my-6"
       >
         <h2 className="text-xl font-bold">Yangi Post Qo'shish</h2>
         <input
@@ -82,12 +77,18 @@ function Home() {
       </form>
 
       <div className="flex flex-col items-center gap-4 justify-around my-10 shadow-xl container mx-auto p-5">
+        {isLoading && (
+          <div>
+            <UpdateIcon className="animate-spin w-20 h-20 aspect-square" />
+          </div>
+        )}
+        {isError && <h1>Error to fetch data</h1>}
         {isSuccess &&
           data?.data?.data?.map(({ title, id }) => {
             return (
               <div
                 key={id}
-                className={`flex items-center text-black justify-between rounded-md shadow-lg w-full px-2 py-4 `}
+                className={`flex items-center text-primary justify-between rounded-lg shadow-lg  w-full px-2 py-4 `}
               >
                 <h2>{title}</h2>
               </div>
